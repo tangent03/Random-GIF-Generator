@@ -1,56 +1,32 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios';
-import Spinner from './Spinner';
+import React from 'react';
 import useGif from '../hooks/useGif';
-
-
-const API_KEY = process.env.REACT_APP_GIPHY_API_KEY;
+import Spinner from './Spinner';
 
 const Random = () => {
-
-     
-
-//    const [gif,setGif] = useState('');
-//    const [loading,setLoading] = useState('false');
-
-//    async function fetchData() {
-
-//     setLoading(true);
-//     const url = `https://api.giphy.com/v1/gifs/random?api_key=${API_KEY}`;
-//     const {data} = await axios.get(url);
-//     const imageSource = data.data.images.downsized_large.url;
-//     console.log(imageSource);
-//     setGif(imageSource);
-//     setLoading(false);
-
-//    }
-
-
-//    useEffect( () => {
-//         fetchData();
-//    },[])
-   
-
-const {gif ,loading, fetchData} = useGif();
-//    function clickHandler(){
-//     fetchData();
-//    }
-    
+  const {gif, loading, fetchData} = useGif();
+  
   return (
-    <div className='w-1/2  bg-green-400 rounded-lg border border-black flex flex-col items-center gap-y-5 mt-[15px] '>
+    <div className='w-full max-w-2xl bg-white/90 backdrop-blur-sm rounded-2xl border border-white/20 flex flex-col items-center gap-y-6 p-6 shadow-xl'>
+      <h1 className='text-2xl md:text-3xl font-bold text-gray-800'>Random GIF</h1>  
 
+      <div className='w-full aspect-video rounded-xl overflow-hidden bg-gray-100 flex items-center justify-center'>
+        {loading ? (
+          <Spinner/>
+        ) : (
+          <img 
+            src={gif} 
+            alt="Random GIF"
+            className='w-full h-full object-contain rounded-xl'
+          />
+        )}
+      </div>
 
-      <h1 className='mt-[15px] mb-[20px] text-2xl underline uppercase font-bold'>A Random Gif</h1>  
-
-
-    {
-        loading ? (<Spinner/>) : (<img src={gif} width="450"/>)
-    }
-
-      
-
-
-      <button onClick={() => fetchData()} className='w-10/12 bg-yellow-500 text-lg py-2 rounded-lg mb-[20px]'>Generate</button>
+      <button 
+        onClick={() => fetchData()} 
+        className='w-full max-w-md bg-gradient-to-r from-indigo-500 to-purple-500 text-white text-lg py-3 px-6 rounded-xl font-semibold hover:from-indigo-600 hover:to-purple-600 transform hover:scale-105 transition-all duration-300 shadow-lg'
+      >
+        Generate New GIF
+      </button>
     </div>
   )
 }
